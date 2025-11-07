@@ -1,10 +1,8 @@
 from django.test import TestCase
 import pytest 
-from django.urls import reverse, resolve
-from django.contrib.auth.models import User
+from django.urls import reverse
 from myapp.models import Item
-from myapp.forms import ItemForm
-from myapp import views
+
 # Create your tests here.
 
 @pytest.mark.django_db

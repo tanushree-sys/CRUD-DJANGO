@@ -1,0 +1,20 @@
+cat > .dockerignore << 'EOF'
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+django_env/
+.env
+.git
+.gitignore
+*.sqlite3
+*.db
+.DS_Store
+.pytest_cache
+htmlcov/
+.coverage
+*.log
+EOF

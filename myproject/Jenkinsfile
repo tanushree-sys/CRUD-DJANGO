@@ -1,0 +1,58 @@
+pipeline{
+    agent any
+
+    environment{
+        DOCKER_IMAGE = 'myproject-django'
+        DOCKER_TAG = "${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out code from GitHub'
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                echo 'Building Docker images'
+                script {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Running tests'
+                script {
+                    sh 'docker-compose run --rm web pytest myapp/tests.py -v'
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application'
+                script {
+                    sh 'docker-compose down'
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Cleaning up'
+            sh 'docker system prune -f'
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

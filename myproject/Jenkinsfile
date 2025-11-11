@@ -27,10 +27,7 @@ pipeline{
             steps {
                 echo 'Running tests'
                 script {
-                    sh '''
-                        cd myproject
-                        docker-compose -f myproject/docker-compose.yml run --rm web pytest
-                    '''
+                    sh 'docker-compose -f myproject/docker-compose.yml run --rm web pytest'
                 }
             }
         }

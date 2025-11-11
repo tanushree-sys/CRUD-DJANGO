@@ -28,32 +28,34 @@ pipeline{
                 echo 'Running tests'
                 script {
                     sh 'pwd'
-                    sh 'docker-compose -f myproject/docker-compose.yml run --rm web pytest /app/myapp/tests.py -v'
+                    sh 'docker-compose -f myproject/docker-compose.yml up '
+                    sh 'docker compose exec web ls'
+                    sh
                 }
             }
         }
         
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application'
-                script {
-                    sh 'docker-compose down'
-                    sh 'docker-compose up -d'
-                }
-            }
-        }
-    }
+    //     stage('Deploy') {
+    //         steps {
+    //             echo 'Deploying application'
+    //             script {
+    //                 sh 'docker-compose down'
+    //                 sh 'docker-compose up -d'
+    //             }
+    //         }
+    //     }
+    // }
     
-    post {
-        always {
-            echo 'Cleaning up'
-            sh 'docker system prune -f'
-        }
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
+    // post {
+    //     always {
+    //         echo 'Cleaning up'
+    //         sh 'docker system prune -f'
+    //     }
+    //     success {
+    //         echo 'Pipeline completed successfully!'
+    //     }
+    //     failure {
+    //         echo 'Pipeline failed!'
+    //     }
     }
 }

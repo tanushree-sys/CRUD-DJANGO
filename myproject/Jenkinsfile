@@ -18,7 +18,7 @@ pipeline{
             steps {
                 echo 'Building Docker images'
                 script {
-                    sh 'docker-compose build'
+                    sh 'docker-compose -f myprojects/docker-compose.yml build'
                 }
             }
         }

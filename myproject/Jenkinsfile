@@ -28,9 +28,7 @@ pipeline{
                 echo 'Running tests'
                 script {
                     sh 'pwd'
-                    sh 'docker-compose -f myproject/docker-compose.yml up '
-                    sh 'docker compose exec web ls'
-                    sh
+                    sh 'docker-compose -f myproject/docker-compose.yml up --rm web ls'
                 }
             }
         }
